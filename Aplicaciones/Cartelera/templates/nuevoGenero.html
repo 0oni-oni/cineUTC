@@ -1,0 +1,23 @@
+{% extends "./plantilla.html" %}
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{% url 'guardarGenero' %}" method="post">
+                {% csrf_token %}
+                <label for=""><b>Nombre:</b></label>
+                <input type="text" name="nombre" class="form-control" id="nombre" placeholder="ingreceel nombre">
+                <label for=""><b>Descripcion</b></label>
+                <textarea type="text"  name="descripcion" descripcion="descripcion" class="form-control" id="descripcion" placeholder="ingresar la descripcion"> </textarea>
+                <br>
+                <button type="submit" class="btn btn-prymary"> Guardar</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'listadoGeneros'%}">cancelar</a>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}
