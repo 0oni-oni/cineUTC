@@ -1,0 +1,67 @@
+{% extends "./plantilla.html" %}
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{% url 'guardarPelicula' %}" enctype="multipart/form-data" id="frm_nueva_pelicula" method="post"> <br>
+                {% csrf_token %}
+                <label for=""><b>Título:</b></label>
+                <input type="text" name="titulo" class="form-control" id="titulo" placeholder="Ingrese el título"> <br>
+                <label for=""><b>Duración:</b></label>
+                <input type="text" name="duracion" class="form-control" id="duracion" placeholder="Ingrese la duración"> <br>
+                <label for=""><b>Sinónimos:</b></label>
+                <input type="text" name="sinonimos" class="form-control" id="sinonimos" placeholder="Ingrese los sinónimos"> <br>
+                <label for=""><b>Género:</b></label>
+                <select name="genero" id="genero" class="form-control">
+                    {% for genero in generos %}
+                        <option value="{{ genero.id }}">{{ genero.nombre }}</option>
+                    {% endfor %}
+                </select> <br>
+                <label for=""><b>Director:</b></label>
+                <select name="director" id="director" class="form-control">
+                    {% for director in directores %}
+                        <option value="{{ director.id }}">{{ director.nombre }} {{ director.apellido }}</option>
+                    {% endfor %}
+                </select> <br>
+                <label for=""><b>País:</b></label>
+                <select name="pais" id="pais" class="form-control">
+                    {% for pais in paises %}
+                        <option value="{{ pais.id }}">{{ pais.nombre }}</option>
+                    {% endfor %}
+                </select> <br>
+                <label for=""><b>Portada:</b></label>
+                <input type="file" name="portada" id="portada" accept="image/*" required class="form-control"> <br>
+
+                <button type="submit" class="btn btn-primary"> Guardar</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'listadoPeliculas' %}">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#frm_nueva_pelicula").validate({
+        rules:{
+            titulo:{required:true},
+            duracion:{required:true},
+            sinonimos:{required:true},
+            genero:{required:true},
+            director:{required:true},
+            pais:{required:true},
+            portada:{required:true}
+        },
+        messages:{
+            titulo:{required:"Por favor ingrese el título"},
+            duracion:{required:"Por favor ingrese la duración"},
+            sinonimos:{required:"Por favor ingrese los sinónimos"},
+            genero:{required:"Por favor seleccione el género"},
+            director:{required:"Por favor seleccione el director"},
+            pais:{required:"Por favor seleccione el país"},
+            portada:{required:"Por favor seleccione la portada"}
+        }
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "./plantilla.html" %}
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{% url 'guardarDirector' %}" enctype="multipart/form-data" id="frm_nuevo_director" method="post"> <br>
+                {% csrf_token %}
+                <label for=""><b>DNI:</b></label>
+                <input type="text" name="dni" class="form-control" id="dni" placeholder="Ingrese el DNI"> <br>
+                <label for=""><b>Apellido:</b></label>
+                <input type="text" name="apellido" class="form-control" id="apellido" placeholder="Ingrese el apellido"> <br>
+                <label for=""><b>Nombre:</b></label>
+                <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese el nombre"> <br>
+                <label for=""><b>Estado:</b></label>
+                <select name="estado" id="estado" class="form-control">
+                    <option value="True">Activo</option>
+                    <option value="False">Inactivo</option>
+                </select> <br>
+                <label for=""><b>Fotografía:</b></label>
+                <input type="file" name="foto" id="foto" accept="image/*" required class="form-control"> <br>
+
+                <button type="submit" class="btn btn-primary"> Guardar</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'listadoDirectores' %}">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#frm_nuevo_director").validate({
+        rules:{
+            dni:{required:true},
+            apellido:{required:true},
+            nombre:{required:true},
+            estado:{required:true},
+            foto:{required:true}
+        },
+        messages:{
+            dni:{required:"Por favor ingrese el DNI"},
+            apellido:{required:"Por favor ingrese el apellido"},
+            nombre:{required:"Por favor ingrese el nombre"},
+            estado:{required:"Por favor seleccione el estado"},
+            foto:{required:"Por favor seleccione la foto"}
+        }
+    });
+</script>
+
+{% endblock %}

@@ -4,14 +4,19 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <form action="{% url 'guardarGenero' %}" method="post">
+            <form action="{% url 'guardarGenero' %}" enctype="multipart/form-data" id="frm_nuevo_genero" method="post"> <br>
                 {% csrf_token %}
                 <label for=""><b>Nombre:</b></label>
-                <input type="text" name="nombre" class="form-control" id="nombre" placeholder="ingreceel nombre">
+                <input type="text" name="nombre" class="form-control" id="nombre" placeholder="ingreceel nombre"> <br>
                 <label for=""><b>Descripcion</b></label>
                 <textarea type="text"  name="descripcion" descripcion="descripcion" class="form-control" id="descripcion" placeholder="ingresar la descripcion"> </textarea>
                 <br>
-                <button type="submit" class="btn btn-prymary"> Guardar</button>
+                <label for=""><b>Fotogografía:</b></label>
+                <input type="file" name="foto" id="foto" 
+                accept="image/*"
+                required class="form-control"> <br>
+
+                <button type="submit" class="btn btn-primary"> Guardar</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="{% url 'listadoGeneros'%}">cancelar</a>
             </form>
@@ -19,5 +24,36 @@
         </div>
     </div>
 </div>
+
+<script>
+    $("#frm_nuevo_genero").validate({
+        rules:{
+            nombre:{required:true,
+                minlength:3,
+                maslength:10
+            
+            },
+            descripcion:{required:true},
+            foto:{required:true}
+
+        },
+        messages:{
+            nombre:{required:"Por favor ingrese el nombre"},
+            descripcion:{required:"La descripcion es obligaoria"},
+            foto:{required:"Por favor seleccione la foto"}
+
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $("#foto").fileinput({                       
+            showBrowse: true,
+            browseOnZoneClick: true            
+        });
+    });
+    </script
+
 
 {% endblock %}

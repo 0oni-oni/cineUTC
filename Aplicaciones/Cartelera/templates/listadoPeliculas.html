@@ -1,32 +1,76 @@
 {% extends "./plantilla.html" %}
 {% block body %}
 
-
 <div class="card">
     <div class="card-title text-center">
-        <h3><b>Listado de Peliculas</b></h3>
+        <h3><b>Listado de Películas</b></h3>
     </div>
 </div>
 
-<table class="table table-bordered table-striped table-hover">
-<thead>
-    <tr>
-        <th>ID</th>
-        <th>TITULO</th>
-        <th>ACCIONES</th>
-    </tr>
-</thead>
-    <tbody>
-    {% for peliculaTemporal in peliculas %}
-        <tr>
-            <td>{{peliculaTemporal.id}}</td>
-            <td>{{peliculaTemporal.titulo}}</td>
-            <td></td>
-        </tr>
-    {% endfor %}
-    </tbody>
+<div class="text-end mb-3">
+    <a href="{% url 'nuevaPelicula' %}" class="btn btn-success">Agregar Película</a>
+</div>
 
+<table class="table table-bordered table-striped table-hover" id="tbl-peliculas">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>TÍTULO</th>
+            <th>DURACIÓN</th>
+            <th>SINÓNIMOS</th>
+            <th>GÉNERO</th>
+            <th>DIRECTOR</th>
+            <th>PAÍS</th>
+            <th>PORTADA</th>
+            <th>ACCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pelicula in peliculas %}
+            <tr>
+                <td>{{ pelicula.id }}</td>
+                <td>{{ pelicula.titulo }}</td>
+                <td>{{ pelicula.duracion }}</td>
+                <td>{{ pelicula.sinonimos }}</td>
+                <td>{{ pelicula.genero.nombre }}</td>
+                <td>{{ pelicula.director.nombre }} {{ pelicula.director.apellido }}</td>
+                <td>{{ pelicula.pais.nombre }}</td>
+                <td>
+                    {% if pelicula.portada %}
+                        <a href="{{ pelicula.portada.url }}" target="_blank">
+                            <img src="{{ pelicula.portada.url }}" alt="Portada de {{ pelicula.titulo }}" height="100px" width="100px">
+                        </a>
+                        <a download href="{{ pelicula.portada.url }}" target="_blank">Descargar</a>
+                    {% else %}
+                        No hay portada
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'editarPelicula' pelicula.id %}" class="btn btn-warning">Editar</a>
+                    <a href="{% url 'eliminarPelicula' pelicula.id %}" onclick="return confirm('¿Estás seguro?');" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
 </table>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        new DataTable('#tbl-peliculas', {
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+            },
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'pdfHtml5',
+                    messageTop: 'PDF creado por PDFMake con botones para DataTables.'
+                },
+                'print',
+                'csv'
+            ]
+        });
+    });
+</script>
 
 {% endblock %}
