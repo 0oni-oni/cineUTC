@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('Aplicaciones.Cartelera.urls'))
+    path('',include('Aplicaciones.Cartelera.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 #Validacion para visualizar los archivos subidos en modo DEV
