@@ -1,8 +1,8 @@
 databases:
-  - name: servidorDteven
+  - name: servidorSteven
     plan: free
     databaseName: dbcine
-    user: Steven
+    user: steven
 
 services:
   - type: web
