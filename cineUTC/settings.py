@@ -123,7 +123,7 @@ USE_TZ = True
 #configuracion de la carpeta para gestionar  archivos estaticos
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS= (os.path.join(BASE_DIR, 'cineUTC/static'),)
+STATICFILES_DIRS= [os.path.join(BASE_DIR, 'cineUTC/static'),]
 
 # VALIDACION
 if not DEBUG:
