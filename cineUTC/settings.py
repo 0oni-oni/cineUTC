@@ -83,8 +83,8 @@ WSGI_APPLICATION = 'cineUTC.wsgi.application'
 #     }
 # }
 DATABASES = {
-    # 'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    #'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
 
 # Password validation
@@ -123,7 +123,7 @@ USE_TZ = True
 #configuracion de la carpeta para gestionar  archivos estaticos
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS= [os.path.join(BASE_DIR, 'cineUTC/static'),]
+STATICFILES_DIRS= [os.path.join(BASE_DIR, 'cineUTC/static')]
 
 # VALIDACION
 if not DEBUG:
@@ -137,3 +137,4 @@ MEDIA_URL='/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'cineUTC/media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+print("DATABASE_URL:", os.environ.get('DATABASE_URL'))
